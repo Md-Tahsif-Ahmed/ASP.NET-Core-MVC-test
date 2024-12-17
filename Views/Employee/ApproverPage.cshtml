@@ -1,0 +1,27 @@
+@model IEnumerable<EmployeeApprovalSystem.Models.Employee>
+
+<h2>Approval Page</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Designation</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var emp in Model)
+    {
+        <tr>
+            <td>@emp.EmployeeName</td>
+            <td>@emp.Designation</td>
+            <td>@emp.Status</td>
+            <td>
+                @if (emp.Status == "Saved")
+                {
+                    <form method="post" asp-action="Approve" asp-route-id="@emp.EmployeeId">
+                        <button type="submit">Approve</button>
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+</table>

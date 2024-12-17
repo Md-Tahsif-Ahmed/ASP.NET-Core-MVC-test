@@ -1,0 +1,31 @@
+@model EmployeeApprovalSystem.Models.Employee
+@{
+    ViewData["Title"] = "Employee Entry";
+}
+
+<h2>Employee Entry</h2>
+<form method="post" asp-action="AddEmployee">
+    <label>Employee Name:</label>
+    <input type="text" name="EmployeeName" required />
+
+    <label>Designation:</label>
+    <input type="text" name="Designation" required />
+
+    <label>Company:</label>
+    <select name="CompanyId">
+        @foreach (var company in ViewBag.Companies)
+        {
+            <option value="@company.CompanyId">@company.CompanyName</option>
+        }
+    </select>
+
+    <label>Department:</label>
+    <select name="DepartmentId">
+        @foreach (var dept in ViewBag.Departments)
+        {
+            <option value="@dept.DepartmentId">@dept.DepartmentName</option>
+        }
+    </select>
+
+    <button type="submit">Add Employee</button>
+</form>
