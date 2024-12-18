@@ -26,6 +26,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Tahsif10\ASP.Net\EmployeeApprovalSystem
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/Tahsif10/ASP.Net/EmployeeApprovalSystem/Views/Employee/AddEmployee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcQWRkRW1wbG95ZWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Tahsif10/ASP.Net/EmployeeApprovalSystem/Views/Employee/ApproverPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcQXBwcm92ZXJQYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

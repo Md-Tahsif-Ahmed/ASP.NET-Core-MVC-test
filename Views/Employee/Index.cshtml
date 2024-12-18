@@ -5,27 +5,29 @@
 
 <h2>Employee Entry</h2>
 <form method="post" asp-action="AddEmployee">
-    <label>Employee Name:</label>
-    <input type="text" name="EmployeeName" required />
+    <div>
+        <label>Employee Name:</label>
+        <input asp-for="EmployeeName" class="form-control" required />
+    </div>
 
-    <label>Designation:</label>
-    <input type="text" name="Designation" required />
+    <div>
+        <label>Designation:</label>
+        <input asp-for="Designation" class="form-control" required />
+    </div>
 
-    <label>Company:</label>
-    <select name="CompanyId">
-        @foreach (var company in ViewBag.Companies)
-        {
-            <option value="@company.CompanyId">@company.CompanyName</option>
-        }
-    </select>
+    <div>
+        <label>Company:</label>
+        <select asp-for="CompanyId" class="form-control" asp-items="@(new SelectList(ViewBag.Companies, "CompanyId", "CompanyName"))">
+            <option value="">-- Select Company --</option>
+        </select>
+    </div>
 
-    <label>Department:</label>
-    <select name="DepartmentId">
-        @foreach (var dept in ViewBag.Departments)
-        {
-            <option value="@dept.DepartmentId">@dept.DepartmentName</option>
-        }
-    </select>
+    <div>
+        <label>Department:</label>
+        <select asp-for="DepartmentId" class="form-control" asp-items="@(new SelectList(ViewBag.Departments, "DepartmentId", "DepartmentName"))">
+            <option value="">-- Select Department --</option>
+        </select>
+    </div>
 
-    <button type="submit">Add Employee</button>
+    <button type="submit" class="btn btn-primary">Add Employee</button>
 </form>

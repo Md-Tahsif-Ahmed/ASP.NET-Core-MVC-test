@@ -1,7 +1,9 @@
-using EmployeeApprovalSystem.Data;
+// EmployeeController.cs
 using EmployeeApprovalSystem.Models;
+using EmployeeApprovalSystem.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
 
 namespace EmployeeApprovalSystem.Controllers
 {
@@ -14,40 +16,31 @@ namespace EmployeeApprovalSystem.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        // GET: Employee Entry Form
+        [HttpGet]
+        public IActionResult AddEmployeeForm()
         {
-            var companies = await _context.Companies.ToListAsync();
-            var departments = await _context.Departments.ToListAsync();
-            ViewBag.Companies = companies;
-            ViewBag.Departments = departments;
+            ViewBag.Companies = new SelectList(_context.Companies.ToList(), "CompanyId", "CompanyName");
+            ViewBag.Departments = new SelectList(_context.Departments.ToList(), "DepartmentId", "DepartmentName");
             return View();
         }
 
+        // POST: Add Employee to Database
         [HttpPost]
-        public async Task<IActionResult> AddEmployee(Employee employee)
+        public IActionResult AddEmployee(Employee employee)
         {
-            employee.Status = "Saved";
-            _context.Employees.Add(employee);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        public async Task<IActionResult> ApproverPage()
-        {
-            var employees = await _context.Employees.Include(e => e.CompanyId).Include(e => e.DepartmentId).ToListAsync();
-            return View(employees);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Approve(int id)
-        {
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee != null)
+            if (ModelState.IsValid)
             {
-                employee.Status = "Approved";
-                await _context.SaveChangesAsync();
+                _context.Employees.Add(employee);
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Employee"); // Redirect to employee list or success page
             }
-            return RedirectToAction("ApproverPage");
+
+            // Re-populate ViewBag in case of validation errors
+            ViewBag.Companies = new SelectList(_context.Companies.ToList(), "CompanyId", "CompanyName");
+            ViewBag.Departments = new SelectList(_context.Departments.ToList(), "DepartmentId", "DepartmentName");
+
+            return View("AddEmployeeForm", employee); // Return to the form with the current data
         }
     }
 }
